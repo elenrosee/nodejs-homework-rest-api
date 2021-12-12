@@ -3,7 +3,7 @@ const express = require('express')
 const { controllerWrapper, validation } = require('../../middlewares')
 
 const { contacts: controllers } = require('../../controllers')
-const { joiSchema, favoriteJoiSchema } = require('../../models')
+const { joiSchema, favoriteJoiSchema } = require('../../models/contacts')
 
 const router = express.Router()
 
