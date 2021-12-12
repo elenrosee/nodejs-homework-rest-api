@@ -1,6 +1,7 @@
 const logger = require('morgan')
 const express = require('express')
 const cors = require('cors')
+require('dotenv').config()
 
 const contactsRouter = require('./routes/api/contacts')
 

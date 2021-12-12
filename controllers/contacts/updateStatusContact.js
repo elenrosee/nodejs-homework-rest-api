@@ -1,10 +1,13 @@
 const { isValidObjectId } = require('mongoose')
 const { Contact } = require('../../models')
 
-const getContactById = async (req, res) => {
+const updateStatusContact = async (req, res, next) => {
   const { contactId } = req.params
+  const { favorite } = req.body
+
   const result =
-    isValidObjectId(contactId) && (await Contact.findById(contactId))
+    isValidObjectId(contactId) &&
+    (await Contact.findByIdAndUpdate(contactId, { favorite }, { new: true }))
 
   if (!result) {
     const error = new Error(`Contact with id=${contactId} not found`)
@@ -20,4 +23,4 @@ const getContactById = async (req, res) => {
   })
 }
 
-module.exports = getContactById
+module.exports = updateStatusContact
