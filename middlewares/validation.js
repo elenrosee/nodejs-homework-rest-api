@@ -1,18 +1,34 @@
+/* eslint-disable no-var */
+
+const Joi = require('joi')
+
 const validation = (schema) => {
   return (req, res, next) => {
-    if (!Object.keys(req.body).length) {
-      const error = new Error('missing fields')
-      error.status = 400
-      next(error)
-      return
+    switch (req.method) {
+      case 'POST':
+        var errMessage = 'missing required name field'
+        break
+
+      case 'PUT':
+        // eslint-disable-next-line no-redeclare
+        var errMessage = 'missing fields'
+        break
+
+      case 'PATCH':
+        // eslint-disable-next-line no-redeclare
+        var errMessage = 'missing field favorite'
+        break
+
+      default:
+        // eslint-disable-next-line no-redeclare
+        var errMessage = 'missing fields'
     }
-    const { error } = schema.validate(req.body)
-    if (error) {
-      error.status = 400
-      error.message = 'missing required name field'
-      next(error)
-      return
-    }
+
+    const NewError = new Error(`${errMessage}`)
+    NewError.status = 400
+
+    Joi.assert(req.body, schema, NewError)
+
     next()
   }
 }

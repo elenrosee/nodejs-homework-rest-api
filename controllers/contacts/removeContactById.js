@@ -1,8 +1,10 @@
-const contactsOperations = require('../../model/contactsOperations')
+const { isValidObjectId } = require('mongoose')
+const { Contact } = require('../../models')
 
 const removeContactById = async (req, res) => {
   const { contactId } = req.params
-  const result = await contactsOperations.removeContactById(contactId)
+  const result =
+    isValidObjectId(contactId) && (await Contact.findByIdAndRemove(contactId))
   if (!result) {
     const error = new Error(`Contact with id=${contactId} not found`)
     error.status = 404
