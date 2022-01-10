@@ -1,7 +1,6 @@
 const express = require('express')
 
 const { controllerWrapper, validation, auth } = require('../../middlewares')
-
 const { contacts: controllers } = require('../../controllers')
 const { joiSchema, favoriteJoiSchema } = require('../../models/contacts')
 
